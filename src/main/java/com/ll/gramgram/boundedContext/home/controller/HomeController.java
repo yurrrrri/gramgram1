@@ -12,6 +12,11 @@ import java.util.Enumeration;
 @Controller
 public class HomeController {
 
+    @GetMapping("/")
+    public String showMain() {
+        return "usr/home/main";
+    }
+
     @GetMapping("/debugSession")
     @ResponseBody
     public String showDebugSession(HttpSession session) {
