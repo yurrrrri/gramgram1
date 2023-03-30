@@ -65,4 +65,58 @@ public class MemberControllerTest {
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is3xxRedirection());
     }
+
+    @Test
+    @DisplayName("회원가입 유효성 검사")
+    void t003() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("username", "user10"))
+                .andDo(print());
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("password", "1234"))
+                .andDo(print());
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("username", "user10" + "a".repeat(30))
+                        .param("password", "1234"))
+                .andDo(print());
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("username", "user10")
+                        .param("password", "1234" + "a".repeat(30)))
+                .andDo(print());
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+    }
 }
