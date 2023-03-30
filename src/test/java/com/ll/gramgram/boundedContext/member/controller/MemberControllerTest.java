@@ -10,12 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,7 +37,16 @@ public class MemberControllerTest {
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("showJoin"))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().string(containsString("""
+                        <input type="text" name="username"
+                        """.stripIndent().trim())))
+                .andExpect(content().string(containsString("""
+                        <input type="password" name="password"
+                        """.stripIndent().trim())))
+                .andExpect(content().string(containsString("""
+                        <input type="submit" value="회원가입"
+                        """.stripIndent().trim())));
     }
 
     @Test
