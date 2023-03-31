@@ -24,3 +24,7 @@
   - [x] 회원가입 버튼
   - [x] 로그아웃 버튼
 - [x] 로그인 후 navbar에 로그인된 회원의 username 출력
+- [x] 정적 파일 정리
+  - [x] common.css로 모으기
+  - [x] common.js로 모으기
+- [x] toastMsg에 ttl 기능 추가 
