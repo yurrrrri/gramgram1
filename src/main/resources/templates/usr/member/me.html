@@ -4,7 +4,10 @@
     </head>
     <body>
         <main layout:fragment="main">
-        내 정보 페이지
+            <div><span th:text="|번호 : ${@rq.member.id}|"></span></div>
+            <div><span th:text="|이름 : ${@rq.member.username}|"></span></div>
+            <div><span th:text="|가입날짜 : ${#temporals.format(@rq.member.createDate, 'yyyy-MM-dd HH:mm')}|"></span></div>
+            <div><span th:text="|수정날짜 : ${#temporals.format(@rq.member.modifyDate, 'yyyy-MM-dd HH:mm')}|"></span></div>
         </main>
     </body>
 </html>
