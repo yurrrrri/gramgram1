@@ -27,4 +27,4 @@
 - [x] 정적 파일 정리
   - [x] common.css로 모으기
   - [x] common.js로 모으기
-- [x] toastMsg에 ttl 기능 추가 
+- [x] toastMsg에 ttl 기능 추가
