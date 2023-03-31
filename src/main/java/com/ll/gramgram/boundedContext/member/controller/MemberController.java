@@ -48,12 +48,10 @@ public class MemberController {
         RsData<Member> joinRs = memberService.join(joinForm.getUsername(), joinForm.getPassword());
 
         if(joinRs.isFail()) {
-            return rq.historyBack(joinRs.getMsg());
+            return rq.historyBack(joinRs);
         }
 
-        String msg = joinRs.getMsg() + "\n로그인 후 이용해주세요.";
-
-        return "redirect:/member/login?msg="+ Ut.url.encode(msg);
+        return rq.redirectWithMsg("/member/login", joinRs);
     }
 
     @PreAuthorize("isAnonymous()")
