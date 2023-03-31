@@ -1,16 +1,22 @@
 package com.ll.gramgram.boundedContext.home.controller;
 
+import com.ll.gramgram.boundedContext.member.entity.Member;
+import com.ll.gramgram.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.Enumeration;
 
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
+
+    private final MemberService memberService;
 
     @GetMapping("/")
     public String showMain() {
